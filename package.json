@@ -1,0 +1,12 @@
+{
+  "name": "serverless-api-qa",
+  "version": "1.0.0",
+  "description": "SDET Portfolio: AWS Serverless API with Playwright Testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.0"
+  }
+}
