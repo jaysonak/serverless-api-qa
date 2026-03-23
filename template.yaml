@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: QA Portfolio - Serverless API for Testing
+
+Resources:
+  # 1. The Database
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: qa-users-table
+      AttributeDefinitions: 
+        - AttributeName: user_id
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: user_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      
+  # 2. The Python App & API Gateway
+  CreateUserFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UsersTable
+      Events:
+        CreateUserAPI:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: post
+
+# THIS SECTION MUST BE FLUSH LEFT (Zero Spaces)
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/users"

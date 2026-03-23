@@ -1,0 +1,19 @@
+# Node & Playwright (We don't want to upload thousands of node modules)
+node_modules/
+playwright-report/
+test-results/
+
+# Python (We don't want to upload your local virtual environment)
+__pycache__/
+*.pyc
+venv/
+env/
+.venv/
+
+# AWS SAM (We don't want to upload local build artifacts)
+.aws-sam/
+.env
+
+# OS Files (Hides annoying Mac/Windows system files)
+.DS_Store
+Thumbs.db
