@@ -14,6 +14,8 @@ def lambda_handler(event, context):
         # Safely attempt to parse JSON
         try:
             body = json.loads(body_content)
+            if body is None: # Handle cases where body is the string "null"
+                body = {}
         except json.JSONDecodeError:
             return {"statusCode": 400, "body": json.dumps({"error": "Invalid JSON format"})}
         
