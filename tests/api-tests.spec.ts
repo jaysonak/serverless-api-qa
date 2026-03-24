@@ -23,7 +23,7 @@ test.describe("SDET Portfolio - User API Tests", () => {
   });
 
   test("should return 400 if user_id is missing", async ({ request }) => {
-    const response = await request.post("/", {
+    const response = await request.post(API_URL, {
       data: {},
     });
 
